@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: wordpress
+    tier: frontend
+  type: ClusterIP
+---
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+spec:
+  tls:
+  - hosts:
+    - wordpressdemo.felizlabs.xyz
+    secretName: star-felizlabs
+  rules:
+  - host: wordpressdemo.felizlabs.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wordpress
+            port:
+              number: 80
+
+# You must create a tls secret for your https certificate
+# example:
+# kubectl create secret tls star-felizlabs --key .\wildcard_felizlabs_xyz.key --cert .\wildcard_felizlabs_xyz.cer

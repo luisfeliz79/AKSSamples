@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: netcheckqa
+  name: netcheckqa
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: netcheckqa
+  template:
+    metadata:
+      labels:
+        app: netcheckqa
+    spec:
+      containers:
+      - image: lufelizacr.azurecr.io/netcheck
+        name: netcheck
+      nodeSelector:
+        nodespeed: slow
+
+# to add a label to a node
+#   kubectl label node/aks-agentpool-25866100-vmss000000 nodespeed=fast
+
+# to remove a label from a node
+#   kubectl label node/aks-agentpool-25866100-vmss000000 nodespeed-
+

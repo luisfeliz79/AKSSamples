@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: netcheck
+  name: netcheck
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netcheck
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: netcheck
+    spec:
+      containers:
+      - image: lufelizacr.azurecr.io/netcheck
+        name: netcheck
+
+# This just a sample, lufelizacr.azurecr.io is a container registry hosted
+# in Azure Container registries.  It is not publically accessible.

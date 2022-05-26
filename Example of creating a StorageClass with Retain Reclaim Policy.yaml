@@ -1,0 +1,19 @@
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  creationTimestamp: "2022-03-16T00:58:29Z"
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+    kubernetes.io/cluster-service: "true"
+  name: azurefile
+  resourceVersion: "401"
+  uid: 9c5527bc-7ed2-4dba-ad75-8080cae32061
+mountOptions:
+- mfsymlinks
+- actimeo=30
+parameters:
+  skuName: Standard_LRS
+provisioner: file.csi.azure.com
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
